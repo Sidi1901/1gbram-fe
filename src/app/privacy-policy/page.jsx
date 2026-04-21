@@ -3,6 +3,8 @@ export const metadata = {
   description: 'Privacy policy for 1GbRam.',
 }
 
+import ScrollReveal from '@/components/ScrollReveal'
+
 export default function PrivacyPolicyPage() {
   const sections = [
     {
@@ -41,20 +43,26 @@ export default function PrivacyPolicyPage() {
 
   return (
     <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-      <h1 className="text-4xl font-extrabold text-gray-900 mb-2">Privacy Policy</h1>
-      <p className="text-gray-400 text-sm mb-10">Effective date: April 18, 2026</p>
+      <ScrollReveal>
+        <h1 className="text-4xl font-extrabold text-gray-900 mb-2">Privacy Policy</h1>
+        <p className="text-gray-400 text-sm mb-10">Effective date: April 18, 2026</p>
+      </ScrollReveal>
 
       <div className="prose prose-gray max-w-none space-y-8">
-        <p className="text-gray-600 leading-relaxed">
-          At 1GbRam we take your privacy seriously. This policy explains what data we collect, how we
-          use it, and what rights you have.
-        </p>
+        <ScrollReveal delay={80}>
+          <p className="text-gray-600 leading-relaxed">
+            At 1GbRam we take your privacy seriously. This policy explains what data we collect, how we
+            use it, and what rights you have.
+          </p>
+        </ScrollReveal>
 
-        {sections.map(({ title, content }) => (
-          <section key={title}>
-            <h2 className="text-xl font-semibold text-gray-900 mb-2">{title}</h2>
-            <p className="text-gray-600 leading-relaxed">{content}</p>
-          </section>
+        {sections.map(({ title, content }, i) => (
+          <ScrollReveal key={title} delay={i * 60}>
+            <section>
+              <h2 className="text-xl font-semibold text-gray-900 mb-2">{title}</h2>
+              <p className="text-gray-600 leading-relaxed">{content}</p>
+            </section>
+          </ScrollReveal>
         ))}
       </div>
     </div>

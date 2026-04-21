@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { Drawer } from "antd";
@@ -15,7 +14,7 @@ export default function NavbarClient({ navLinks, logo }) {
     <header className="sticky top-0 z-50 bg-white border-b border-gray-100 shadow-sm">
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
         {/* Logo */}
-        <Link href="/" className="flex items-center no-underline">
+        <a href="/" className="flex items-center no-underline">
           {logo ? (
             <Image
               src={logo.url}
@@ -30,7 +29,7 @@ export default function NavbarClient({ navLinks, logo }) {
               1GbRam
             </span>
           )}
-        </Link>
+        </a>
 
         {/* Desktop nav */}
         <ul
@@ -45,14 +44,14 @@ export default function NavbarClient({ navLinks, logo }) {
                   |
                 </span>
               )}
-              <Link
+              <a
                 href={url}
                 className={`text-sm font-medium transition-colors hover:text-blue-600 no-underline ${
                   pathname === url ? "text-blue-600" : "text-gray-600"
                 }`}
               >
                 {label}
-              </Link>
+              </a>
             </li>
           ))}
         </ul>
@@ -87,7 +86,7 @@ export default function NavbarClient({ navLinks, logo }) {
         <ul className="list-none m-0 p-0 flex flex-col gap-4">
           {navLinks.map(({ id, label, url }) => (
             <li key={id}>
-              <Link
+              <a
                 href={url}
                 onClick={() => setDrawerOpen(false)}
                 className={`block text-base font-medium transition-colors hover:text-blue-600 no-underline ${
@@ -95,7 +94,7 @@ export default function NavbarClient({ navLinks, logo }) {
                 }`}
               >
                 {label}
-              </Link>
+              </a>
             </li>
           ))}
         </ul>

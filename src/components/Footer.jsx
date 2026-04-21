@@ -1,4 +1,3 @@
-import Link from "next/link";
 import ReactMarkdown from "react-markdown";
 import { fetchStrapi } from "@/lib/strapi";
 
@@ -31,12 +30,12 @@ export default async function Footer() {
                 {i > 0 && (
                   <span className="text-gray-400 mx-3 select-none">|</span>
                 )}
-                <Link
+                <a
                   href={url}
                   className="text-sm text-gray-600 hover:text-gray-900 transition-colors no-underline"
                 >
                   {label}
-                </Link>
+                </a>
               </span>
             ))}
           </div>
