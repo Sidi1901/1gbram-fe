@@ -1,53 +1,106 @@
-import ReactMarkdown from "react-markdown";
-import { fetchStrapi } from "@/lib/strapi";
+const CATEGORIES = [
+  {
+    label: "GTA5",
+    url: `${process.env.NEXT_PUBLIC_ROOT_PAGE_URL}/category/gta5/`,
+  },
+  {
+    label: "Microsoft Applications",
+    url: `${process.env.NEXT_PUBLIC_ROOT_PAGE_URL}/category/microsoft-applications/`,
+  },
+  {
+    label: "Other",
+    url: `${process.env.NEXT_PUBLIC_ROOT_PAGE_URL}/category/others/`,
+  },
+];
 
-async function getFooter() {
-  try {
-    // Fetch footer data from Strapi with caching (revalidate every hour)
-    const res = await fetchStrapi("/footer?populate=*", { revalidate: 3600 });
-    return res?.data?.attributes ?? null;
-  } catch {
-    return null;
-  }
-}
+const LEGAL_LINKS = [
+  {
+    label: "Privacy Policy",
+    url: `${process.env.NEXT_PUBLIC_ROOT_PAGE_URL}/privacy-policy/`,
+  },
+  {
+    label: "Terms & Conditions",
+    url: `${process.env.NEXT_PUBLIC_ROOT_PAGE_URL}/terms-conditions/`,
+  },
+];
 
-export default async function Footer() {
-  const footer = await getFooter();
+const YEAR = new Date().getFullYear();
 
-  const navLinks = footer?.footerNav ?? [];
-  const copyright =
-    footer?.copyright ??
-    `${new Date().getFullYear()} 1GBRam.com. All rights reserved.`;
-  const disclaimer = footer?.disclaimer ?? "";
-
+export default function Footer() {
   return (
-    <footer className="bg-gray-100 border-t border-gray-200 py-8 px-4">
-      <div className="max-w-3xl mx-auto text-center space-y-4">
-        {navLinks.length > 0 && (
-          <div className="flex flex-wrap justify-center items-center gap-0">
-            {navLinks.map(({ id, label, url }, i) => (
-              <span key={id} className="flex items-center">
-                {i > 0 && (
-                  <span className="text-gray-400 mx-3 select-none">|</span>
-                )}
+    <footer className="bg-gray-950 text-gray-400">
+      {/* Main footer grid */}
+      <div className="max-w-6xl mx-auto px-6 py-14 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
+        {/* Brand */}
+        <div className="space-y-4">
+          <a
+            href={`${process.env.NEXT_PUBLIC_ROOT_PAGE_URL}/`}
+            className="text-white text-xl font-bold tracking-tight no-underline hover:opacity-80 transition-opacity"
+          >
+            1GBRam<span className="text-blue-500">.com</span>
+          </a>
+          <p className="text-sm leading-relaxed text-gray-400 max-w-xs">
+            Dev insights, tools, and tutorials optimised for developers running
+            lean hardware.
+          </p>
+        </div>
+
+        {/* Categories */}
+        <div className="space-y-4">
+          <h4 className="text-white text-sm font-semibold uppercase tracking-widest">
+            Categories
+          </h4>
+          <ul className="space-y-3 list-none p-0 m-0">
+            {CATEGORIES.map(({ label, url }) => (
+              <li key={label}>
                 <a
                   href={url}
-                  className="text-sm text-gray-600 hover:text-gray-900 transition-colors no-underline"
+                  className="text-sm text-gray-400 hover:text-white hover:pl-1 transition-all duration-200 no-underline"
                 >
                   {label}
                 </a>
-              </span>
+              </li>
             ))}
-          </div>
-        )}
+          </ul>
+        </div>
 
-        {disclaimer && (
-          <div className="text-xs text-gray-500 leading-relaxed mx-auto prose prose-xs max-w-none">
-            <ReactMarkdown>{disclaimer}</ReactMarkdown>
-          </div>
-        )}
+        {/* Legal */}
+        <div className="space-y-4">
+          <h4 className="text-white text-sm font-semibold uppercase tracking-widest">
+            Legal
+          </h4>
+          <ul className="space-y-3 list-none p-0 m-0">
+            {LEGAL_LINKS.map(({ label, url }) => (
+              <li key={label}>
+                <a
+                  href={url}
+                  className="text-sm text-gray-400 hover:text-white hover:pl-1 transition-all duration-200 no-underline"
+                >
+                  {label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
 
-        <p className="text-xs text-gray-500">&copy; {copyright}</p>
+      {/* Divider */}
+      <div className="border-t border-gray-800" />
+
+      {/* Bottom bar */}
+      <div className="max-w-6xl mx-auto px-6 py-6 flex flex-col gap-4">
+        <p className="text-xs text-gray-500 leading-relaxed">
+          <span className="text-gray-400 font-semibold">Disclaimer: </span>
+          Information on this website is based on official sources and publicly
+          available data, along with occasional estimates or pre-release
+          assumptions. While we aim for accuracy, we do not guarantee
+          completeness or reliability. Please verify details from official
+          sources before making decisions. We are not liable for any losses
+          resulting from the use of this information.
+        </p>
+        <p className="text-xs text-gray-600">
+          &copy; {YEAR} 1GBRam.com. All rights reserved.
+        </p>
       </div>
     </footer>
   );

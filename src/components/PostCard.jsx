@@ -1,16 +1,10 @@
 import Image from "next/image";
 import { Tag } from "antd";
 import { CalendarOutlined, ArrowRightOutlined } from "@ant-design/icons";
-import { STRAPI_MEDIA_URL } from "@/lib/strapi";
-
 export default function PostCard({ title, slug, excerpt, publishedAt, tags, image, author }) {
   const coverUrl = image?.data?.attributes?.url ?? image?.url;
   const authorName = author?.data?.attributes?.name ?? author?.name;
-  const fullCover = coverUrl
-    ? coverUrl.startsWith("http")
-      ? coverUrl
-      : `${STRAPI_MEDIA_URL}${coverUrl}`
-    : null;
+  const fullCover = coverUrl?.startsWith("http") ? coverUrl : null;
 
   return (
     <a

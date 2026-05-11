@@ -14,7 +14,10 @@ export default function NavbarClient({ navLinks, logo }) {
     <header className="sticky top-0 z-50 bg-white border-b border-gray-100 shadow-sm">
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
         {/* Logo */}
-        <a href="/" className="flex items-center no-underline">
+        <a
+          href={`${process.env.NEXT_PUBLIC_ROOT_PAGE_URL}/`}
+          className="flex items-center no-underline"
+        >
           {logo ? (
             <Image
               src={logo.url}
@@ -25,8 +28,8 @@ export default function NavbarClient({ navLinks, logo }) {
               className="object-contain"
             />
           ) : (
-            <span className="text-xl font-bold text-gray-900 hover:text-blue-600 transition-colors">
-              1GbRam
+            <span className="text-xl font-bold tracking-tight text-gray-900">
+              1GBRam<span className="text-blue-500">.com</span>
             </span>
           )}
         </a>
@@ -40,7 +43,13 @@ export default function NavbarClient({ navLinks, logo }) {
           {navLinks.map(({ id, label, url }, i) => (
             <li key={id} style={{ display: "flex", alignItems: "center" }}>
               {i > 0 && (
-                <span style={{ color: "#d1d5db", padding: "0 12px", userSelect: "none" }}>
+                <span
+                  style={{
+                    color: "#d1d5db",
+                    padding: "0 12px",
+                    userSelect: "none",
+                  }}
+                >
                   |
                 </span>
               )}
@@ -60,7 +69,13 @@ export default function NavbarClient({ navLinks, logo }) {
         <button
           onClick={() => setDrawerOpen(true)}
           className="text-gray-600 hover:text-gray-900"
-          style={{ display: "none", background: "none", border: "none", cursor: "pointer", padding: 4 }}
+          style={{
+            display: "none",
+            background: "none",
+            border: "none",
+            cursor: "pointer",
+            padding: 4,
+          }}
           id="hamburger-btn"
           aria-label="Open menu"
         >
